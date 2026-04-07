@@ -1,15 +1,20 @@
+import 'dotenv/config';
 import express from 'express';
 import logger from 'morgan';
 import cors from 'cors';
 import usersRouter from './routes/users.js';
+import moviesRouter from './routes/movies.js';
+import authRouter from './routes/auth.js';
 import { routeNotFoundJsonHandler } from './services/routeNotFoundJsonHandler.js';
 import { jsonErrorHandler } from './services/jsonErrorHandler.js';
 import { appDataSource } from './datasource.js';
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './docs/swagger.js';
 
 const apiRouter = express.Router();
 
 appDataSource
-  .initialize()
+   .initialize()
   .then(() => {
     console.log('Data Source has been initialized!');
     const app = express();
@@ -18,12 +23,15 @@ appDataSource
     app.use(cors());
     app.use(express.json());
     app.use(express.urlencoded({ extended: false }));
+    app.use("/api-docs",swaggerUi.serve,swaggerUi.setup(swaggerSpec));
 
     // Register routes
     apiRouter.get('/', (req, res) => {
       res.send('Hello from Express!');
     });
     apiRouter.use('/users', usersRouter);
+    apiRouter.use("/movies", moviesRouter);
+    apiRouter.use("/auth", authRouter);
 
     // Register API router
     app.use('/api', apiRouter);

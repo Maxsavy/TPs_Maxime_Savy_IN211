@@ -1,10 +1,11 @@
-import { useState } from 'react'
+//import { useState } from 'react'
 
 import './App.css'
 
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
 import Home from './pages/Home/Home'
 import MoviePage from './pages/Movie/MoviePage'
+import Login from './pages/Login/Login'
 
 function App() {
   return (
@@ -13,12 +14,18 @@ function App() {
         <Link to="/" style={{ marginRight: '1rem' }}>
           Home
         </Link>
-        <Link to="/movies">Movies</Link>
+        <Link to="/movies" style={{ marginRight: '1rem' }}>
+          Movies
+        </Link>
+        <Link to="/login" style={{ marginRight: '1rem' }}>
+          Login
+        </Link>
       </nav>
 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/movies" element={<MoviePage />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   )
