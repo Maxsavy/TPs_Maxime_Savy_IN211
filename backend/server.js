@@ -10,6 +10,7 @@ import { jsonErrorHandler } from './services/jsonErrorHandler.js';
 import { appDataSource } from './datasource.js';
 import swaggerUi from 'swagger-ui-express';
 import { swaggerSpec } from './docs/swagger.js';
+import cookieParser from 'cookie-parser';
 
 const apiRouter = express.Router();
 
@@ -20,9 +21,10 @@ appDataSource
     const app = express();
 
     app.use(logger('dev'));
-    app.use(cors());
+    app.use(cors({ origin: "http://localhost:5173", credentials: true }));
     app.use(express.json());
     app.use(express.urlencoded({ extended: false }));
+    app.use(cookieParser());
     app.use("/api-docs",swaggerUi.serve,swaggerUi.setup(swaggerSpec));
 
     // Register routes

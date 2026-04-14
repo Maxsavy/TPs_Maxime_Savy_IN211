@@ -15,7 +15,7 @@ function App() {
           Home
         </Link>
         <Link to="/movies" style={{ marginRight: '1rem' }}>
-          Movies
+          Favorites
         </Link>
         <Link to="/login" style={{ marginRight: '1rem' }}>
           Login

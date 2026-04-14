@@ -1,55 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap');
+
 @font-face {
-  font-family: 'Kollektif';
+  font-family: 'Lora';
   src:
-    url('/fonts/Kollektif.woff2') format('woff2'),
-    url('/fonts/Kollektif.woff') format('woff'),
-    url('/fonts/Kollektif.ttf') format('truetype');
+    url('/fonts/Lora.woff2') format('woff2'),
+    url('/fonts/Lora.woff') format('woff'),
+    url('/fonts/Lora.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Kollektif';
+  font-family: 'Lora';
   src:
-    url('/fonts/Kollektif-Bold.woff2') format('woff2'),
-    url('/fonts/Kollektif-Bold.woff') format('woff'),
-    url('/fonts/Kollektif-Bold.ttf') format('truetype');
+    url('/fonts/Lora-Bold.woff2') format('woff2'),
+    url('/fonts/Lora-Bold.woff') format('woff'),
+    url('/fonts/Lora-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Kollektif';
+  font-family: 'Lora';
   src:
-    url('/fonts/Kollektif-Italic.woff2') format('woff2'),
-    url('/fonts/Kollektif-Italic.woff') format('woff'),
-    url('/fonts/Kollektif-Italic.ttf') format('truetype');
+    url('/fonts/Lora-Italic.woff2') format('woff2'),
+    url('/fonts/Lora-Italic.woff') format('woff'),
+    url('/fonts/Lora-Italic.ttf') format('truetype');
   font-weight: 400;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Kollektif';
+  font-family: 'Lora';
   src:
-    url('/fonts/Kollektif-BoldItalic.woff2') format('woff2'),
-    url('/fonts/Kollektif-BoldItalic.woff') format('woff'),
-    url('/fonts/Kollektif-BoldItalic.ttf') format('truetype');
+    url('/fonts/Lora-BoldItalic.woff2') format('woff2'),
+    url('/fonts/Lora-BoldItalic.woff') format('woff'),
+    url('/fonts/Lora-BoldItalic.ttf') format('truetype');
   font-weight: 700;
   font-style: italic;
   font-display: swap;
 }
 
 :root {
-  font-family: 'Kollektif', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Lora', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #5b4e47;
+  background-color: #ede4d3;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -59,7 +61,7 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #104203;
   text-decoration: inherit;
 }
 a:hover {
@@ -76,6 +78,7 @@ body {
 
 h1 {
   font-size: 3.2em;
+  color: #17381a;
   line-height: 1.1;
 }
 

@@ -63,6 +63,10 @@ router.post('/login', async function (req, res) {
     expiresIn: '1h',
     });
 
+    res.cookie("token",token, {
+        httpOnly:true,
+        secure:false,
+    });
     res.json({ token });
 });
 
