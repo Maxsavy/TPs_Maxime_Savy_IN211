@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm';
-import Movie from '../entities/movie.js';
-import User from '../entities/user.js';
+import Movie from './entities/movie.js';
+import User from './entities/user.js';
 
 export const appDataSource = new DataSource({
   type: 'postgres',
