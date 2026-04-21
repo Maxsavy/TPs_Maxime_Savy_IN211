@@ -1,4 +1,6 @@
 import { DataSource } from 'typeorm';
+import Movie from '../entities/movie.js';
+import User from '../entities/user.js';
 
 export const appDataSource = new DataSource({
   type: 'postgres',
@@ -8,17 +10,14 @@ export const appDataSource = new DataSource({
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_NAME,
   synchronize: false,
-  entities: ['entities/*.js'],
+  entities: [Movie, User],
   migrations: ['migrations/*.js'],
   cli: {
     migrationsDir: 'migrations',
   },
   extra: {
-    ssl:
-      process.env.NODE_ENV === 'production'
-        ? false
-        : {
-            rejectUnauthorized: false,
-          },
+    ssl: {
+      rejectUnauthorized: false,
+    },
   },
 });
