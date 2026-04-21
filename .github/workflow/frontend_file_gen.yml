@@ -12,3 +12,11 @@ jobs:
         run: |
           rm -rf backend/public/*
           cp -r frontend/dist/* backend/public/
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git add backend/public/
+          git diff-index --quiet HEAD || git commit -m "chore: update frontend build files"
+          git push
