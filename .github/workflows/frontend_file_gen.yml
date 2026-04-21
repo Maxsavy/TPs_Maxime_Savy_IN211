@@ -1,0 +1,14 @@
+name: Building frontend files for deploy
+on: push
+jobs:
+  build-and-copy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build frontend
+        working-directory: ./frontend
+        run: npm run build
+
+      - name: Copy built files to backend public
+        run: |
+          rm -rf backend/public/*
+          cp -r frontend/dist/* backend/public/
