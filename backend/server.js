@@ -41,7 +41,7 @@ apiRouter.use("/movies", moviesRouter);
 apiRouter.use("/auth", authRouter);
 
 // Register API router
-app.use('/', apiRouter);
+app.use('/api', apiRouter);
 
 // Register 404 middleware and error handler
 app.use(routeNotFoundJsonHandler); // this middleware must be registered after all routes to handle 404 correctly
