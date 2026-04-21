@@ -59,6 +59,11 @@ export async function ensureDb() {
   await appDataSource
     .initialize()
     .then(() => {
+      console.log(NODE_ENV);
+      console.log(DATABASE_NAME);
+      console.log(DATABASE_PORT);
+      console.log(DATABASE_USER);
+      console.log(DATABASE_HOST);
       console.log('Data Source has been initialized!');
       isInitialized = true;
       console.log('DB initialized');
