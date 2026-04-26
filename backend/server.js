@@ -5,6 +5,7 @@ import cors from 'cors';
 import usersRouter from './routes/users.js';
 import moviesRouter from './routes/movies.js';
 import authRouter from './routes/auth.js';
+import ratingsRouter from './routes/ratings.js';
 import { routeNotFoundJsonHandler } from './services/routeNotFoundJsonHandler.js';
 import { jsonErrorHandler } from './services/jsonErrorHandler.js';
 import { appDataSource } from './datasource.js';
@@ -39,6 +40,7 @@ apiRouter.get('/', (req, res) => {
 apiRouter.use('/users', usersRouter);
 apiRouter.use("/movies", moviesRouter);
 apiRouter.use("/auth", authRouter);
+apiRouter.use("/ratings", ratingsRouter);
 
 // Register API router
 app.use('/api', apiRouter);
