@@ -7,12 +7,71 @@
 .logo:hover {
   filter: drop-shadow(0 0 2em #5f66eaaa);
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
 
 .home {
   padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.home h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  color: #333;
+}
+
+.search-container {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  justify-content: center;
+}
+
+.search-input {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 8px 0 0 8px;
+  width: 100%;
+  max-width: 400px;
+  transition: border-color 0.3s ease;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: #104203;
+  box-shadow: 0 0 0 3px rgba(16, 66, 3, 0.1);
+}
+
+.search-button {
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  background-color: #104203;
+  color: white;
+  border: none;
+  border-radius: 0 8px 8px 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  font-weight: 600;
+}
+
+.search-button:hover {
+  background-color: #17381a;
+  transform: translateY(-2px);
+}
+
+.search-button:active {
+  transform: translateY(0);
+}
+
+.search-result-text {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #104203;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
 }
 
 .movies-grid {

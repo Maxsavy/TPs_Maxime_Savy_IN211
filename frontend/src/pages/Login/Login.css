@@ -1,0 +1,116 @@
+.login-wrap {
+  min-height: calc(100vh - 80px); /* ← au lieu de 100vh */
+  min-width: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0d3502 0%, #1a5c06 50%, #104203 100%);
+  padding: 2rem;
+  margin: 0 2rem;        /* ← ajouter pour ne pas coller aux bords */
+  border-radius: 16px;   /* ← ajouter pour arrondir le bloc vert */
+}
+
+.login-card {
+  background: white;
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.login-card h1 {
+  font-size: 2rem;
+  color: #104203;
+  margin: 0 0 0.25rem 0;
+}
+
+.login-card > p {
+  color: #888;
+  font-size: 0.9rem;
+  margin: 0 0 2rem 0;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 0.4rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e5e5e5;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.form-group input:focus {
+  border-color: #104203;
+  box-shadow: 0 0 0 3px rgba(16, 66, 3, 0.1);
+}
+
+.login-btn {
+  width: 100%;
+  padding: 0.85rem;
+  background: #104203;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  margin-top: 0.5rem;
+}
+
+.login-btn:hover {
+  background: #17381a;
+  transform: translateY(-1px);
+}
+
+.logout-btn {
+  background: #c0392b;
+  margin-top: 1.5rem;
+}
+
+.logout-btn:hover {
+  background: #a93226;
+}
+
+.login-error {
+  background: #fde8e8;
+  color: #c0392b;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  margin-bottom: 1rem;
+  border-left: 3px solid #c0392b;
+}
+
+.toggle-link {
+  color: #104203;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.toggle-link:hover {
+  text-decoration: underline;
+}
+
+.login-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.88rem;
+  color: #888;
+}

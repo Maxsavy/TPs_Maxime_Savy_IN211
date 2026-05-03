@@ -6,6 +6,7 @@ import User from '../entities/user.js';
 const router = express.Router();
 
 router.get('/', function (req, res) {
+  console.log("getting users");
   appDataSource
     .getRepository(User)
     .find({})

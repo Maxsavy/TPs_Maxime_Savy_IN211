@@ -59,15 +59,16 @@ router.post('/login', async function (req, res) {
     return res.status(401).json({ message: 'Identifiants invalides' });
     }
 
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
     expiresIn: '1h',
     });
 
-    res.cookie("token",token, {
-        httpOnly:true,
-        secure:false,
+    res.cookie("token", token, {
+        httpOnly: true,
+        secure: false,
+        sameSite: 'lax'
     });
-    res.json({ token });
+    res.json({ token, user: { firstname: user.firstname, lastname: user.lastname, email: user.email } });
 });
 
 

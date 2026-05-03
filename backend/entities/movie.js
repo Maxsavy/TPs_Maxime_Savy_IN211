@@ -5,14 +5,20 @@ const Movie = new typeorm.EntitySchema({
   columns: {
     id: {
       primary: true,
-      generated: 'uuid',
-      type: String,
+      type: String,      // l'id TMDB (ex: "550"), plus de generated
     },
     title: {
       type: String,
-      unique: true,
+      nullable: true,
     },
-    releaseDate: { type: Date },
+    posterPath: {
+      type: String,
+      nullable: true,
+    },
+    releaseDate: {
+      type: String,
+      nullable: true,
+    },
   },
 });
 
