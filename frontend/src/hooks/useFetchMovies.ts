@@ -10,7 +10,7 @@ interface Movie {
   poster_path: string
 }
 
-export function useFetchMovies() {
+export function useFetchMovies(): [Movie[], React.Dispatch<React.SetStateAction<Movie[]>>] {
   const [movies, setMovies] = useState<Movie[]>([])
 
   useEffect(() => {
@@ -26,5 +26,5 @@ export function useFetchMovies() {
       })
   }, [])
 
-  return movies
+  return [movies, setMovies]
 }

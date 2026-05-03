@@ -1,0 +1,296 @@
+.movie-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 2rem;
+  color: #104203;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.back-link:hover {
+  color: #17381a;
+}
+
+.movie-details {
+  display: flex;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+.movie-poster-section {
+  flex-shrink: 0;
+}
+
+.movie-poster-large {
+  width: 300px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  margin-bottom: 1.5rem;
+}
+
+.movie-rating-large {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.3rem;
+  justify-content: center;
+}
+
+.movie-rating-large .star {
+  font-size: 2rem;
+  color: #ffc107;
+}
+
+.movie-rating-large .rating-value {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.movie-rating-large .rating-max {
+  font-size: 1.2rem;
+  color: #999;
+}
+
+.movie-content {
+  flex: 1;
+}
+
+.movie-content h1 {
+  margin: 0 0 1.5rem 0;
+  font-size: 2.5rem;
+  color: #333;
+}
+
+.movie-meta {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.release-year {
+  font-size: 1.1rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.runtime {
+  font-size: 1rem;
+  color: #666;
+  padding: 0.5rem 1rem;
+  background-color: #f0f0f0;
+  border-radius: 20px;
+}
+
+.genres {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.genre-tag {
+  display: inline-block;
+  padding: 0.5rem 1.2rem;
+  background-color: #104203;
+  color: white;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.description-section {
+  margin-bottom: 3rem;
+}
+
+.description-section h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.overview {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #555;
+  margin: 0;
+}
+
+.reviews-section {
+  margin-top: 3rem;
+}
+
+.reviews-section h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.review-card {
+  padding: 1.5rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  border-left: 4px solid #104203;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.review-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.review-rating {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  background-color: #ffc107;
+  color: #333;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.review-content {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #555;
+}
+
+.rating-form-section {
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  border: 2px solid #104203;
+}
+
+.rating-form-section h2 {
+  margin-top: 0;
+  color: #333;
+  font-size: 1.3rem;
+}
+
+.rating-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #333;
+  font-size: 1rem;
+}
+
+.star-rating-input {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.star-button {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #ddd;
+  transition: color 0.2s ease, transform 0.1s ease;
+  padding: 0;
+}
+
+.star-button:hover,
+.star-button.active {
+  color: #104203;
+  transform: scale(1.2);
+}
+
+.rating-display {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #104203;
+  margin-top: 0.5rem;
+}
+
+.comment-input {
+  padding: 1rem;
+  font-size: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-family: inherit;
+  resize: vertical;
+  transition: border-color 0.3s ease;
+}
+
+.comment-input:focus {
+  outline: none;
+  border-color: #104203;
+  box-shadow: 0 0 0 3px rgba(16, 66, 3, 0.1);
+}
+
+.submit-rating-btn {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: #104203;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.submit-rating-btn:hover:not(:disabled) {
+  background-color: #17381a;
+  transform: translateY(-2px);
+}
+
+.submit-rating-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .movie-details {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .movie-poster-large {
+    width: 100%;
+  }
+
+  .movie-content h1 {
+    font-size: 1.8rem;
+  }
+
+  .movie-meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
