@@ -3,6 +3,7 @@ import { appDataSource } from '../datasource.js';
 import Rating from '../entities/rating.js';
 import User from '../entities/user.js';
 import Movie from '../entities/movie.js';
+import { authMiddleware } from '../middlewares/auth.js';
 
 /**
  * @swagger
@@ -12,13 +13,6 @@ import Movie from '../entities/movie.js';
  *     responses:
  *       200:
  *         description: Liste des ratings
- * /api/ratings/movie/:movieId:
- *   get:
- *     summary: Récupérer les ratings d'un film
- *     responses:
- *       200:
- *         description: Ratings du film
- * /api/ratings:
  *   post:
  *     summary: Ajouter un rating
  *     requestBody:
@@ -37,6 +31,12 @@ import Movie from '../entities/movie.js';
  *     responses:
  *       201:
  *         description: Rating ajouté
+  * /api/ratings/movie/:movieId:
+ *   get:
+ *     summary: Récupérer les ratings d'un film
+ *     responses:
+ *       200:
+ *         description: Ratings du film
  * /api/ratings/:movieId:
  *   put:
  *     summary: Modifier un rating
@@ -83,52 +83,92 @@ router.get('/movie/:movieId', function (req, res) {
     });
 });
 
-// Ajouter un nouveau rating
-router.post('/', function (req, res) {
-  const { movieId, rating, comment } = req.body;
+// Récupérer les ratings de l'utilisateur connecté
+router.get('/user/me', authMiddleware, function (req, res) {
   const userId = req.user?.id;
 
   if (!userId) {
     return res.status(401).json({ message: 'User not authenticated' });
   }
 
-  if (!movieId || !rating) {
-    return res
-      .status(400)
-      .json({ message: 'movieId and rating are required' });
-  }
-
-  if (rating < 1 || rating > 5) {
-    return res.status(400).json({ message: 'Rating must be between 1 and 5' });
-  }
-
-  const ratingRepository = appDataSource.getRepository(Rating);
-  const newRating = ratingRepository.create({
-    userId,
-    movieId,
-    rating,
-    comment: comment || null,
-  });
-
-  ratingRepository
-    .insert(newRating)
-    .then(function (result) {
-      res.status(201).json(result);
+  appDataSource
+    .getRepository(Rating)
+    .find({
+      where: { userId },
+      relations: ['movie'],
+    })
+    .then(function (ratings) {
+      res.json({ ratings });
     })
     .catch(function (error) {
-      console.error(error);
-      if (error.code === '23505') {
-        res.status(400).json({
-          message: 'You have already rated this movie',
-        });
-      } else {
-        res.status(500).json({ message: 'Error while creating the rating' });
-      }
+      res.status(500).json({ message: 'Error fetching user ratings' });
     });
 });
 
+// Récupérer le rating de l'utilisateur pour un film spécifique
+router.get('/:movieId', authMiddleware, function (req, res) {
+  const userId = req.user?.id;
+  const { movieId } = req.params;
+
+  if (!userId) {
+    return res.status(401).json({ message: 'User not authenticated' });
+  }
+
+  appDataSource
+    .getRepository(Rating)
+    .findOne({
+      where: { userId, movieId },
+    })
+    .then(function (rating) {
+      if (!rating) {
+        return res.status(404).json({ message: 'No rating found' });
+      }
+      res.json({ rating });
+    })
+    .catch(function (error) {
+      res.status(500).json({ message: 'Error fetching rating' });
+    });
+});
+
+// Ajouter un nouveau rating
+router.post('/', authMiddleware, async function (req, res) {
+  const { movieId, rating, comment, movieTitle, moviePoster } = req.body;
+  const userId = req.user?.id;
+
+  if (!userId) return res.status(401).json({ message: 'User not authenticated' });
+  if (!movieId || !rating) return res.status(400).json({ message: 'movieId and rating are required' });
+  if (rating < 1 || rating > 5) return res.status(400).json({ message: 'Rating must be between 1 and 5' });
+
+  try {
+    const movieRepository = appDataSource.getRepository(Movie);
+
+    // Upsert le film si il n'existe pas encore en DB
+    await movieRepository.upsert(
+      {
+        id: movieId,           // l'id TMDB (string)
+        title: movieTitle,
+        posterPath: moviePoster,
+      },
+      ['id']                   // conflit sur la colonne id → update sinon
+    );
+
+    const ratingRepository = appDataSource.getRepository(Rating);
+    const newRating = ratingRepository.create({ userId, movieId, rating, comment: comment || null });
+
+    const result = await ratingRepository.insert(newRating);
+    res.status(201).json(result);
+  } catch (error) {
+    if (error.code === '23505') {
+      res.status(400).json({ message: 'You have already rated this movie' });
+    } else {
+      console.error(error);
+      res.status(500).json({ message: 'Error while creating the rating' });
+    }
+  }
+});
+
 // Modifier un rating
-router.put('/:movieId', function (req, res) {
+router.put('/:movieId', authMiddleware, function (req, res) {
   const userId = req.user?.id;
   const { movieId } = req.params;
   const { rating, comment } = req.body;
@@ -167,7 +207,7 @@ router.put('/:movieId', function (req, res) {
 });
 
 // Supprimer un rating
-router.delete('/:movieId', function (req, res) {
+router.delete('/:movieId', authMiddleware, function (req, res) {
   const userId = req.user?.id;
   const { movieId } = req.params;
 
