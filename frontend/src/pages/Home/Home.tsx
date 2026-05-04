@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { MovieCard } from '../../components/movie-card'
 import { useFetchMovies } from '../../hooks/useFetchMovies'
+import type { Movie } from '../../api/movies.ts'
 
 function Home() {
   const [searchQuery, setSearchQuery] = useState('')

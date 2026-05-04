@@ -1,69 +1,71 @@
 .login-wrap {
-  min-height: calc(100vh - 80px); /* ← au lieu de 100vh */
-  min-width: 600px;
+  min-height: calc(100vh - 57px);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #0d3502 0%, #1a5c06 50%, #104203 100%);
+  background-color: #ede4d3;  /* ← couleur beige du site */
   padding: 2rem;
-  margin: 0 2rem;        /* ← ajouter pour ne pas coller aux bords */
-  border-radius: 16px;   /* ← ajouter pour arrondir le bloc vert */
+  margin: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .login-card {
-  background: white;
+  background: #104203;        /* ← vert foncé */
   border-radius: 16px;
   padding: 2.5rem 2rem;
   width: 100%;
   max-width: 380px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
 }
 
 .login-card h1 {
   font-size: 2rem;
-  color: #104203;
+  color: #e8dfc8;             /* ← beige clair */
   margin: 0 0 0.25rem 0;
 }
 
 .login-card > p {
-  color: #888;
+  color: #a8c5a0;             /* ← vert clair */
   font-size: 0.9rem;
   margin: 0 0 2rem 0;
-}
-
-.form-group {
-  margin-bottom: 1.2rem;
 }
 
 .form-group label {
   display: block;
   font-size: 0.85rem;
   font-weight: 600;
-  color: #444;
+  color: #e8dfc8;             /* ← beige */
   margin-bottom: 0.4rem;
 }
 
 .form-group input {
   width: 100%;
   padding: 0.75rem 1rem;
-  border: 2px solid #e5e5e5;
+  border: 2px solid #1a5c06;
   border-radius: 8px;
   font-size: 0.95rem;
   outline: none;
+  background: #0d3502;        /* ← vert très foncé */
+  color: #e8dfc8;             /* ← texte beige */
   transition: border-color 0.2s, box-shadow 0.2s;
   box-sizing: border-box;
 }
 
+.form-group input::placeholder {
+  color: #5a8a5a;
+}
+
 .form-group input:focus {
-  border-color: #104203;
-  box-shadow: 0 0 0 3px rgba(16, 66, 3, 0.1);
+  border-color: #e8dfc8;
+  box-shadow: 0 0 0 3px rgba(232, 223, 200, 0.15);
 }
 
 .login-btn {
   width: 100%;
   padding: 0.85rem;
-  background: #104203;
-  color: white;
+  background: #e8dfc8;        /* ← beige */
+  color: #104203;             /* ← vert foncé */
   border: none;
   border-radius: 8px;
   font-size: 1rem;
@@ -74,12 +76,13 @@
 }
 
 .login-btn:hover {
-  background: #17381a;
+  background: #f5efe0;
   transform: translateY(-1px);
 }
 
 .logout-btn {
   background: #c0392b;
+  color: white;
   margin-top: 1.5rem;
 }
 
@@ -87,30 +90,29 @@
   background: #a93226;
 }
 
-.login-error {
-  background: #fde8e8;
-  color: #c0392b;
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
+.login-footer {
+  text-align: center;
+  margin-top: 1.5rem;
   font-size: 0.88rem;
-  margin-bottom: 1rem;
-  border-left: 3px solid #c0392b;
+  color: #a8c5a0;
 }
 
 .toggle-link {
-  color: #104203;
+  color: #e8dfc8;
   font-weight: 600;
   cursor: pointer;
-  text-decoration: none;
 }
 
 .toggle-link:hover {
   text-decoration: underline;
 }
 
-.login-footer {
-  text-align: center;
-  margin-top: 1.5rem;
+.login-error {
+  background: rgba(192, 57, 43, 0.2);
+  color: #f5a89a;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
   font-size: 0.88rem;
-  color: #888;
+  margin-bottom: 1rem;
+  border-left: 3px solid #c0392b;
 }

@@ -17,26 +17,23 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
-      <nav style={{ padding: '2rem', textAlign: 'center', fontSize: '1.5rem' }}>
-        <Link to="/" onClick={handleHomeClick} style={{ marginRight: '2rem' }}>
-          Home
-        </Link>
-        <Link to="/my-notes" style={{ marginRight: '2rem' }}>
-          Mes Notes
-        </Link>
-        <Link to="/login" style={{ marginRight: '2rem' }}>
-          Login
-        </Link>
-      </nav>
+<BrowserRouter>
+  <header className="app-header">
+    <span className="app-logo">RATE MY MOVIE</span>
+    <nav className="app-nav">
+      <Link to="/" onClick={handleHomeClick}>Home</Link>
+      <Link to="/my-notes">Mes Notes</Link>
+      <Link to="/login">Login</Link>
+    </nav>
+  </header>
 
-      <Routes>
-        <Route path="/" element={<Home key={homeKey} />} />
-        <Route path="/movie/:movieId" element={<MoviePage />} />
-        <Route path="/my-notes" element={<MyNotes />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-    </BrowserRouter>
+  <Routes>
+    <Route path="/" element={<Home key={homeKey} />} />
+    <Route path="/movie/:movieId" element={<MoviePage />} />
+    <Route path="/my-notes" element={<MyNotes />} />
+    <Route path="/login" element={<Login />} />
+  </Routes>
+</BrowserRouter>
   )
 }
 

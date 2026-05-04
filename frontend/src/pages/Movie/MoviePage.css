@@ -265,6 +265,11 @@
   transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
+.delete-rating-btn {
+  background-color: #c0392b;
+  color: white;
+}
+
 .submit-rating-btn:hover:not(:disabled) {
   background-color: #17381a;
   transform: translateY(-2px);
@@ -293,4 +298,21 @@
     flex-direction: column;
     align-items: flex-start;
   }
+}
+
+.community-review {
+  border-left: 4px solid #104203;
+  background: #f0f5ee;
+}
+
+.community-rating {
+  color: white;
+  font-size: 1rem;
+}
+
+.review-date {
+  font-size: 0.8rem;
+  color: #999;
+  margin-top: 0.5rem;
+  display: block;
 }

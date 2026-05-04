@@ -26,7 +26,7 @@ export const MyNotes = () => {
   const [ratings, setRatings] = useState<RatingWithMovie[]>([])
   const [loading, setLoading] = useState(true)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_LOCAL_URL
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
   const API_KEY = import.meta.env.VITE_API_KEY
 
   useEffect(() => {

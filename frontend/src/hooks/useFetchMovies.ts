@@ -1,14 +1,8 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import type { Movie } from '../api/movies.ts'
 
 const API_KEY = import.meta.env.VITE_API_KEY
-
-interface Movie {
-  id: number
-  title: string
-  release_date: string
-  poster_path: string
-}
 
 export function useFetchMovies(): [Movie[], React.Dispatch<React.SetStateAction<Movie[]>>] {
   const [movies, setMovies] = useState<Movie[]>([])

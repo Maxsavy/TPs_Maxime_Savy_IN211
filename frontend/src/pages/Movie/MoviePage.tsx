@@ -1,7 +1,7 @@
 import { useParams, Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import './Movie.css'
+import './MoviePage.css'
 
 interface Movie {
   id: number
@@ -29,10 +29,23 @@ interface UserRating {
   createdAt: string
 }
 
+interface CommunityRating {
+  userId: string
+  movieId: string
+  rating: number
+  comment: string
+  createdAt: string
+  user: {
+    firstname: string
+    lastname: string
+  }
+}
+
 export const MoviePage = () => {
   const { movieId } = useParams()
   const [movie, setMovie] = useState<Movie | null>(null)
   const [reviews, setReviews] = useState<Review[]>([])
+  const [communityRatings, setCommunityRatings] = useState<CommunityRating[]>([])
   const [loading, setLoading] = useState(true)
   const [userRating, setUserRating] = useState<UserRating | null>(null)
   const [ratingValue, setRatingValue] = useState(0)
@@ -40,7 +53,7 @@ export const MoviePage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const API_KEY = import.meta.env.VITE_API_KEY
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_LOCAL_URL
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
   useEffect(() => {
     const storedEmail = localStorage.getItem('userEmail')
@@ -60,7 +73,11 @@ export const MoviePage = () => {
         )
         setReviews(reviewsResponse.data.results)
 
-        // Fetch user rating if logged in
+        const communityResponse = await axios.get(
+          `${BACKEND_URL}/ratings/movie/${movieId}`
+        )
+        setCommunityRatings(communityResponse.data.ratings || [])
+
         if (isLoggedIn) {
           try {
             const ratingResponse = await axios.get(
@@ -73,7 +90,7 @@ export const MoviePage = () => {
               setCommentValue(ratingResponse.data.rating.comment || '')
             }
           } catch (error) {
-            // No rating exists yet
+            console.error('Error fetching user rating:', error)
           }
         }
       } catch (error) {
@@ -90,13 +107,16 @@ export const MoviePage = () => {
 
   const handleDeleteRating = async () => {
     if (!confirm('Supprimer votre avis ?')) return
-
     try {
       await axios.delete(`${BACKEND_URL}/ratings/${movieId}`, { withCredentials: true })
       setUserRating(null)
       setRatingValue(0)
       setCommentValue('')
+      // Refresh community ratings
+      const communityResponse = await axios.get(`${BACKEND_URL}/ratings/movie/${movieId}`)
+      setCommunityRatings(communityResponse.data.ratings || [])
     } catch (error) {
+      console.error('Error deleting rating:', error)
       alert('Erreur lors de la suppression')
     }
   }
@@ -118,24 +138,19 @@ export const MoviePage = () => {
 
     try {
       if (userRating) {
-        // Update existing rating
         await axios.put(
           `${BACKEND_URL}/ratings/${movieId}`,
-          {
-            rating: ratingValue,
-            comment: commentValue,
-          },
+          { rating: ratingValue, comment: commentValue },
           { withCredentials: true }
         )
       } else {
-        // Create new rating
         await axios.post(
           `${BACKEND_URL}/ratings`,
           {
             movieId: movieId,
             rating: ratingValue,
             comment: commentValue,
-            movieTitle: movie?.title,        
+            movieTitle: movie?.title,
             moviePoster: movie?.poster_path,
           },
           { withCredentials: true }
@@ -149,6 +164,10 @@ export const MoviePage = () => {
         comment: commentValue,
         createdAt: new Date().toISOString(),
       })
+
+      // Refresh community ratings
+      const communityResponse = await axios.get(`${BACKEND_URL}/ratings/movie/${movieId}`)
+      setCommunityRatings(communityResponse.data.ratings || [])
 
       alert('Votre note a été enregistrée !')
     } catch (error: any) {
@@ -173,7 +192,7 @@ export const MoviePage = () => {
   return (
     <div className="movie-page">
       <Link to="/" className="back-link">← Retour</Link>
-      
+
       <div className="movie-details">
         <div className="movie-poster-section">
           <img src={imageUrl} alt={movie.title} className="movie-poster-large" />
@@ -186,7 +205,7 @@ export const MoviePage = () => {
 
         <div className="movie-content">
           <h1>{movie.title}</h1>
-          
+
           <div className="movie-meta">
             <span className="release-year">{movie.release_date.split('-')[0]}</span>
             {movie.runtime && <span className="runtime">{movie.runtime} min</span>}
@@ -251,8 +270,32 @@ export const MoviePage = () => {
         </div>
       </div>
 
+      {/* Avis de la communauté Rate My Movie */}
+      {communityRatings.length > 0 && (
+        <div className="reviews-section">
+          <h2>Avis de la communauté Rate My Movie ({communityRatings.length})</h2>
+          <div className="reviews-list">
+            {communityRatings.map(r => (
+              <div key={r.userId} className="review-card community-review">
+                <div className="review-header">
+                  <h3>{r.user?.firstname} {r.user?.lastname}</h3>
+                  <span className="review-rating community-rating">
+                    {'★'.repeat(r.rating)}{'☆'.repeat(5 - r.rating)} {r.rating}/5
+                  </span>
+                </div>
+                {r.comment && <p className="review-content">{r.comment}</p>}
+                <span className="review-date">
+                  {new Date(r.createdAt).toLocaleDateString('fr-FR')}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Avis TMDB */}
       <div className="reviews-section">
-        <h2>Avis des autres utilisateurs ({reviews.length})</h2>
+        <h2>Avis des utilisateurs TMDB ({reviews.length})</h2>
         {reviews.length > 0 ? (
           <div className="reviews-list">
             {reviews.map(review => (
@@ -260,9 +303,7 @@ export const MoviePage = () => {
                 <div className="review-header">
                   <h3>{review.author}</h3>
                   {review.rating && (
-                    <span className="review-rating">
-                      {review.rating}/10
-                    </span>
+                    <span className="review-rating">{review.rating}/10</span>
                   )}
                 </div>
                 <p className="review-content">{review.content}</p>
