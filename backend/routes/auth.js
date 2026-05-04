@@ -7,18 +7,9 @@ import { authMiddleware } from '../middlewares/auth.js';
 
 /**
  * @swagger
- * 
- * /api/auth/me:
- *   get:
- *     summary: Récupérer mon user
- *     security: 
- *         - bearerAuth: []
- *     responses:
- *       200:
- *         description: Moi
  * /api/auth/login:
  *   post:
- *     summary: Ajouter un film
+ *     summary: Authentifier un utilisateur
  *     requestBody:
  *       required: true
  *       content:
@@ -26,21 +17,23 @@ import { authMiddleware } from '../middlewares/auth.js';
  *           schema:
  *             type: object
  *             properties:
- *               title:
+ *               email:
  *                 type: string
- *               releaseDate:
+ *               password:
  *                 type: string
- *     responses:
- *       201:
- *         description: Film ajouté
- *       500:
- *         description: Erreur serveur
-  * /api/movies/:movieId:
- *   delete:
- *     summary: Supprimer un film à partir de son ID
  *     responses:
  *       200:
- *         description: Film supprimé
+ *         description: Authentification réussie
+ *       401:
+ *         description: Identifiants invalides
+ * /api/auth/me:
+ *   get:
+ *     summary: Récupérer les informations de l'utilisateur connecté
+ *     responses:
+ *       200:
+ *         description: Informations de l'utilisateur
+ *       401:
+ *         description: Non authentifié
  */
 
 const router = express.Router();

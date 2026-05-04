@@ -4,15 +4,14 @@ import Avis from '../entities/avis.js';
 
 /**
  * @swagger
- * /api/movies:
+ * /api/avis:
  *   get:
- *     summary: Récupérer la liste des films
+ *     summary: Récupérer tous les avis
  *     responses:
  *       200:
- *         description: Liste des films
- * /api/movies/new:
+ *         description: Liste des avis
  *   post:
- *     summary: Ajouter un film
+ *     summary: Ajouter un avis
  *     requestBody:
  *       required: true
  *       content:
@@ -20,21 +19,32 @@ import Avis from '../entities/avis.js';
  *           schema:
  *             type: object
  *             properties:
- *               title:
+ *               movieId:
  *                 type: string
- *               releaseDate:
+ *               rating:
+ *                 type: number
+ *               comment:
  *                 type: string
  *     responses:
  *       201:
- *         description: Film ajouté
- *       500:
- *         description: Erreur serveur
-  * /api/movies/:movieId:
- *   delete:
- *     summary: Supprimer un film à partir de son ID
+ *         description: Avis ajouté
+ * /api/avis/movie/:movieId:
+ *   get:
+ *     summary: Récupérer les avis d'un film
  *     responses:
  *       200:
- *         description: Film supprimé
+ *         description: Avis du film
+ * /api/avis/:movieId:
+ *   put:
+ *     summary: Modifier un avis
+ *     responses:
+ *       200:
+ *         description: Avis modifié
+ *   delete:
+ *     summary: Supprimer un avis
+ *     responses:
+ *       204:
+ *         description: Avis supprimé
  */
 
 const router = express.Router();

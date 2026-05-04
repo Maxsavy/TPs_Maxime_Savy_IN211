@@ -11,7 +11,7 @@ function Login() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
   const [error, setError] = useState("");
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_LOCAL_URL;
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
     const storedEmail = localStorage.getItem('userEmail');

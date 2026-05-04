@@ -5,7 +5,7 @@ const Movie = new typeorm.EntitySchema({
   columns: {
     id: {
       primary: true,
-      type: String,      // l'id TMDB (ex: "550"), plus de generated
+      type: String,
     },
     title: {
       type: String,

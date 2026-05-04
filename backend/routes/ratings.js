@@ -52,6 +52,7 @@ import { authMiddleware } from '../middlewares/auth.js';
 
 const router = express.Router();
 
+
 // Récupérer tous les ratings
 router.get('/', function (req, res) {
   appDataSource
@@ -67,7 +68,7 @@ router.get('/', function (req, res) {
     });
 });
 
-// Récupérer les ratings d'un film spécifique
+// Récupérer les ratings d'un film
 router.get('/movie/:movieId', function (req, res) {
   appDataSource
     .getRepository(Rating)
@@ -142,14 +143,13 @@ router.post('/', authMiddleware, async function (req, res) {
   try {
     const movieRepository = appDataSource.getRepository(Movie);
 
-    // Upsert le film si il n'existe pas encore en DB
     await movieRepository.upsert(
       {
-        id: movieId,           // l'id TMDB (string)
+        id: movieId,
         title: movieTitle,
         posterPath: moviePoster,
       },
-      ['id']                   // conflit sur la colonne id → update sinon
+      ['id']
     );
 
     const ratingRepository = appDataSource.getRepository(Rating);

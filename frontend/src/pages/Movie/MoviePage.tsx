@@ -53,7 +53,7 @@ export const MoviePage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const API_KEY = import.meta.env.VITE_API_KEY
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_LOCAL_URL
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
   useEffect(() => {
     const storedEmail = localStorage.getItem('userEmail')
@@ -90,7 +90,7 @@ export const MoviePage = () => {
               setCommentValue(ratingResponse.data.rating.comment || '')
             }
           } catch (error) {
-            // No rating exists yet
+            console.error('Error fetching user rating:', error)
           }
         }
       } catch (error) {
@@ -116,6 +116,7 @@ export const MoviePage = () => {
       const communityResponse = await axios.get(`${BACKEND_URL}/ratings/movie/${movieId}`)
       setCommunityRatings(communityResponse.data.ratings || [])
     } catch (error) {
+      console.error('Error deleting rating:', error)
       alert('Erreur lors de la suppression')
     }
   }
